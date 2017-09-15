@@ -2,6 +2,9 @@ const axios = require('axios');
 const getLikePages = require('../likePages');
 
 module.exports = function (app, db) {
+    app.get('/react'), (req, res) => {
+        res.render('react') 
+    }
 
     app.get('/home', (req, res) => {
         var userId = req.session.passport.user;
@@ -18,7 +21,8 @@ module.exports = function (app, db) {
                         if (err) return console.log(err)
                     })
                     //home should be change
-                    res.render('home');
+                    // res.render('home');
+                    res.send(pageObj)
                 })
         })
     })

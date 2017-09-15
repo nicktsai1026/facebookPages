@@ -1,5 +1,6 @@
 const express = require('express');
 const app = express();
+const router = express.Router();
 const MongoClient = require('mongodb').MongoClient;
 const bodyParser = require('body-parser');
 const hb = require('express-handlebars');
@@ -8,6 +9,11 @@ const db = require('./config/db');
 
 app.engine('handlebars', hb({ defaultLayout: 'main' }));
 app.set('view engine', 'handlebars');
+
+// view engine setup
+// app.set('views', path.join(__dirname, 'views'));
+// app.set('view engine', 'ejs'); 
+// app.engine('html', require('ejs').renderFile);
 
 const port = 8080;
 
