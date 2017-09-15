@@ -31,7 +31,6 @@ module.exports = (app, db) => {
                     var updatePhoto = { fbPhoto: profile.photos[0].value };
                     db.collection('users').updateOne({ fbId: profile.id }, { $set: updatePhoto }, (err, item) => {
                         if (err) return console.log(err)
-                            console.log(fbInfoObj)
                         return cb(null, fbInfoObj);
                     })
                 }

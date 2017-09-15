@@ -2,7 +2,18 @@ const passport = require('passport');
 
 module.exports = function (app, db) {
     
-    app.get('/login', (req, res) => {
+    function isLoggedIn(req, res, next) {
+        if (req.isAuthenticated()) {
+            return next();
+        }
+        res.redirect('/facebookLogin');
+    }
+
+    app.get('/login', isLoggedIn, (req, res) => {
+        res.render('home');
+    })
+
+    app.get('/facebookLogin', (req, res) => {
         res.render('login');
     })
 
@@ -10,9 +21,10 @@ module.exports = function (app, db) {
         passport.authenticate('facebook'));
 
     app.get('/auth/facebook/callback',
-        passport.authenticate('facebook', { 
-      successRedirect: '/home', failureRedirect: '/fail' }),
-    );
+        passport.authenticate('facebook', { failureRedirect: '/login' }),
+        function (req, res) {
+            res.redirect('/home');
+        });
 
     // app.get('/auth/facebook/callback',
     //     passport.authenticate('facebook', { 
