@@ -17,24 +17,24 @@ module.exports = function (app, db) {
         res.render('login');
     })
 
-    app.get('/auth/facebook',
-        passport.authenticate('facebook'));
-
     app.get('/auth/facebook/callback',
         passport.authenticate('facebook', { failureRedirect: '/login' }),
         function (req, res) {
             res.redirect('/home');
         });
 
+    app.get('/auth/facebook',
+        passport.authenticate('facebook'));
+
     // app.get('/auth/facebook/callback',
     //     passport.authenticate('facebook', { 
-    //         successRedirect: 'http://localhost:3000/home'
+    //         successRedirect: 'http://localhost:3000/home',
     //         failureRedirect: 'http://localhost:3000' 
     //     }),);
-        // function (req, res) {
-        //     // res.redirect('/home');
-        //     // res.send('logged in!')
-        //     res.redirect('http://localhost:3000')
-        // });
-    
+    // function (req, res) {
+    //     // res.redirect('/home');
+    //     // res.send('logged in!')
+    //     res.redirect('http://localhost:3000')
+    // });
+
 }

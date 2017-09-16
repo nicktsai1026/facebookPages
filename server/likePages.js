@@ -3,6 +3,7 @@ const axios = require('axios');
 function pageDetails (path) {
     return new Promise((resolve, reject) => {
         var pageData = [];
+        var count = 1;
         getDetail(path) 
         function getDetail (path) {
             axios.get(path)
@@ -40,5 +41,6 @@ function pageDetails (path) {
         }
     })
 }
+
 
 module.exports.pageDetails = pageDetails;
