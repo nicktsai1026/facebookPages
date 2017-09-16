@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import logo from './logo.svg';
 import './App.css';
 import Login from './loginComp.jsx'
-import ShowLikes from './showLikes.jsx'
+import ShowLikes from './fbLikes.jsx'
 
 class App extends Component {
   constructor(props) {

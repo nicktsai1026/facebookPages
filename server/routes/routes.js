@@ -76,6 +76,7 @@ module.exports = function (app, db) {
                     console.log(err);
                 })
         })
+        // res.render('home');
     })
 
     app.get('/checkSamePages', (req, res) => {

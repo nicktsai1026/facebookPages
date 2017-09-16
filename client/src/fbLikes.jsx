@@ -1,17 +1,17 @@
 import React, { Component } from 'react';
 import axios from 'axios';
 
-export default class ShowLikes extends Component {
+export default class fbLikes extends Component {
     constructor (props) {
         super(props)
         this.getPages()
     }
 
     getPages(){
-        axios.get('http://localhost:8080/home')
-            .then((data)=>{
-                console.log(data.data)
-            })
+        // axios.get('http://localhost:8080/home')
+        //     .then((data)=>{
+        //         console.log(data.data)
+        //     })
     }
 
     render () {

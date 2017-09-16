@@ -10,11 +10,6 @@ const db = require('./config/db');
 app.engine('handlebars', hb({ defaultLayout: 'main' }));
 app.set('view engine', 'handlebars');
 
-// view engine setup
-// app.set('views', path.join(__dirname, 'views'));
-// app.set('view engine', 'ejs'); 
-// app.engine('html', require('ejs').renderFile);
-
 const port = 8080;
 
 app.use(bodyParser.urlencoded({ extended: true }));
@@ -31,8 +26,8 @@ app.use(session({
     saveUninitialized: true
 }));
 
-//use style.css file
-//app.use('/public', express.static(__dirname + '/public'));
+// use style.css file
+app.use('/assets', express.static(__dirname + '/assets'));
 
 MongoClient.connect(db.url, (err, database) => {
     if (err) return console.log(err)

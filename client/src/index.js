@@ -2,7 +2,7 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
 import App from './App.jsx';
-import showLikes from './showLikes.jsx';
+import showLikes from './fbLikes.jsx';
 import Login from './loginComp.jsx';
 import registerServiceWorker from './registerServiceWorker';
 
