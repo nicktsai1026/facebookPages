@@ -78,6 +78,32 @@ module.exports = function (app, db) {
         })
     })
 
+    app.get('/interface', (req, res) => {
+        var userId = req.session.passport.user;
+        db.collection('users').findOne({ fbId: userId }, (err, item) => {
+            if (err) return console.log(err)
+            var personalInfo= {};
+            personalInfo.name = item.fbName;
+            personalInfo.picture = item.fbPhoto;
+            res.send(personalInfo);
+        })
+    })
+
+    app.get('/likedPage', (req, res) => {
+        // var userId = req.session.passport.user;
+        var userId = '1808586925832988';
+        db.collection('users').findOne({ fbId: userId }, (err, item) => {
+            if (err) return console.log(err)
+            var pageArr = item.likes;
+            var categoryArr = []
+            pageArr.forEach((val) => {
+                categoryArr.push(val.category);
+            })
+            console.log(categoryArr)
+        })
+    })
+
+
     app.get('/checkSamePages', (req, res) => {
         db.collection('pagedetails').find({}).toArray((err, item) => {
             var pageArr = [];
@@ -107,8 +133,8 @@ module.exports = function (app, db) {
         })
     })
 
-    app.put('/update', (req, res) => {
-        console.log(req);
-    })
+
 
 }
+
+
