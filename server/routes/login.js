@@ -11,6 +11,7 @@ module.exports = function (app, db) {
 
     app.get('/login', isLoggedIn, (req, res) => {
         res.render('home');
+        //Redirect to another page for registered users 
     })
 
     app.get('/facebookLogin', (req, res) => {
@@ -20,21 +21,20 @@ module.exports = function (app, db) {
     app.get('/auth/facebook/callback',
         passport.authenticate('facebook', { failureRedirect: '/login' }),
         function (req, res) {
-            res.redirect('/home');
+            let userId = req.user.fbId
+            db.collection('users').findOne({ fbId : userId }, (err, item) => {
+                if (err) return console.log(err)
+                console.log(item.fbId)
+                if (item.fbId){
+                    console.log('Redirect this user to a registered route')
+                    res.redirect('/home');        
+                } else {
+                    console.log('This is a new user!')
+                    res.redirect('/home');
+                }
+            })
         });
 
     app.get('/auth/facebook',
         passport.authenticate('facebook'));
-
-    // app.get('/auth/facebook/callback',
-    //     passport.authenticate('facebook', { 
-    //         successRedirect: 'http://localhost:3000/home',
-    //         failureRedirect: 'http://localhost:3000' 
-    //     }),);
-    // function (req, res) {
-    //     // res.redirect('/home');
-    //     // res.send('logged in!')
-    //     res.redirect('http://localhost:3000')
-    // });
-
 }
