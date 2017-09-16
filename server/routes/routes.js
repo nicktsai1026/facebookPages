@@ -2,9 +2,8 @@ const axios = require('axios');
 const getLikePages = require('../likePages');
 
 module.exports = function (app, db) {
+
     app.get('/react', (req, res) => {
-        console.log('logged in!')
-        // console.log(res)    
         res.render('react') 
     })
 
@@ -17,7 +16,6 @@ module.exports = function (app, db) {
             var path = `https://graph.facebook.com/v2.10/${this.facebookId}/likes?fields=name,fan_count,category,about,link,picture&access_token=${this.accessToken}`;
             getLikePages.pageDetails(path)
                 .then((details) => {
-                    //...
                     var newPageIdOnly = details[1];
                     db.collection('users').findOne({ fbId: userId }, (err, item) => {
                         if(item.likes) {
@@ -48,13 +46,6 @@ module.exports = function (app, db) {
                             if (err) return console.log(err)
                         })
                     })
-                    //.....
-                    // var pageObj = {};
-                    // pageObj.likes = details;
-                    // db.collection('users').updateOne({ fbId: userId }, { $set: pageObj }, (err, item) => {
-                    //     if (err) return console.log(err)
-                    // })
-                    //return details;
                     return details[0];
                 })
                 .then((detailArr) => {
@@ -78,10 +69,8 @@ module.exports = function (app, db) {
                         })
                     })
                     //home should be change
-                    // res.render('home');
-                    // console.log(pageObj)
-                    // res.send("THIS IS THE PAGE OBJ: " + pageObj)
-                    res.render('react', {detailArr})
+                    res.render('home');
+                    // res.send(pageObj)
                 })
                 .catch((err) => {
                     console.log(err);
@@ -89,7 +78,7 @@ module.exports = function (app, db) {
         })
     })
 
-    app.get('/check', (req, res) => {
+    app.get('/checkSamePages', (req, res) => {
         db.collection('pagedetails').find({}).toArray((err, item) => {
             var pageArr = [];
             item.forEach((val) => {
@@ -111,4 +100,15 @@ module.exports = function (app, db) {
             // console.log(counter);
         })
     })
+
+    app.get('/getCategory', (req, res) => {
+        db.collection('pagedetails').find({}).toArray((err, item) => {
+            console.log(item);
+        })
+    })
+
+    app.put('/update', (req, res) => {
+        console.log(req);
+    })
+
 }
