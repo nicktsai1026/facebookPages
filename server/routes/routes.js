@@ -79,7 +79,8 @@ module.exports = function (app, db) {
         // res.render('home');
     })
 
-    app.get('/interface', (req, res) => {
+    app.get('/profile', (req, res) => {
+        console.log(req.session)
         var userId = req.session.passport.user;
         db.collection('users').findOne({ fbId: userId }, (err, item) => {
             if (err) return console.log(err)

@@ -3,6 +3,7 @@ import logo from './logo.svg';
 import './App.css';
 import Login from './loginComp.jsx'
 import ShowLikes from './fbLikes.jsx'
+import ShowProfile from './fbProfile.jsx'
 
 class App extends Component {
   constructor(props) {
@@ -29,6 +30,7 @@ class App extends Component {
           To get started, edit <code>src/App.js</code> and save to reload.
         </p>
         <ShowLikes />
+        <ShowProfile />
       </div>
     );
   }
