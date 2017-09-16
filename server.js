@@ -19,6 +19,12 @@ const port = 8080;
 
 app.use(bodyParser.urlencoded({ extended: true }));
 
+app.use(function(req, res, next) {
+    res.header("Access-Control-Allow-Origin", "*");
+    res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+    next();
+  });
+
 app.use(session({
     secret: 'supersecret',
     resave: true,
@@ -30,7 +36,7 @@ app.use(session({
 
 MongoClient.connect(db.url, (err, database) => {
     if (err) return console.log(err)
-    require('./app/routes')(app, database);
+    require('./server/routes')(app, database);
     app.listen(port, () => {
         console.log('We are live on ' + port);
     });

@@ -2,15 +2,17 @@ const axios = require('axios');
 const getLikePages = require('../likePages');
 
 module.exports = function (app, db) {
-    app.get('/react'), (req, res) => {
+    app.get('/react', (req, res) => {
+        console.log('logged in!')
+        // console.log(res)    
         res.render('react') 
-    }
+    })
 
     app.get('/home', (req, res) => {
         var userId = req.session.passport.user;
         db.collection('users').findOne({ fbId : userId }, (err, item) => {
             if (err) return console.log(err)
-            this.accessToken = item.access_token;
+            this.accessToken = item.access_token ;
             this.facebookId = item.fbId;
             var path = `https://graph.facebook.com/v2.10/${this.facebookId}/likes?fields=name,fan_count,category,about,link,picture&access_token=${this.accessToken}`;
             getLikePages.pageDetails(path)
@@ -77,7 +79,9 @@ module.exports = function (app, db) {
                     })
                     //home should be change
                     // res.render('home');
-                    res.send(pageObj)
+                    // console.log(pageObj)
+                    // res.send("THIS IS THE PAGE OBJ: " + pageObj)
+                    res.render('react', {detailArr})
                 })
                 .catch((err) => {
                     console.log(err);
@@ -94,7 +98,7 @@ module.exports = function (app, db) {
                     pageArr.push(val);
                 }
             })
-            console.log(pageArr);
+            // console.log(pageArr);
         })
     })
 
@@ -104,7 +108,7 @@ module.exports = function (app, db) {
             item.likes.forEach((val)=>{
                 counter++;
             })
-            console.log(counter);
+            // console.log(counter);
         })
     })
 }

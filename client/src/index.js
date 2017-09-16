@@ -1,13 +1,12 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
-import App from './App';
-import showLikes from './showLikes';
-import Login from './loginComp';
+import App from './App.jsx';
+import showLikes from './showLikes.jsx';
+import Login from './loginComp.jsx';
 import registerServiceWorker from './registerServiceWorker';
 
-// ReactDOM.render(<App />, document.getElementById('root'));
-// ReactDOM.render(<App />, document.getElementById('root'));
-ReactDOM.render(<Login />, document.getElementById('login'));
-ReactDOM.render(<showLikes />, document.getElementById('likes'));
+ReactDOM.render(<App />, document.getElementById('root'));
+// ReactDOM.render(<Login />, document.getElementById('login'));
+// ReactDOM.render(<showLikes />, document.getElementById('likes'));
 registerServiceWorker();

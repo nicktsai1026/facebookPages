@@ -9,7 +9,8 @@ module.exports = (app, db) => {
         clientID: '109100156427112',
         clientSecret: '6fcf61cd163db93babd249db426d73d9',
         callbackURL: 'http://localhost:8080/auth/facebook/callback',
-        profileFields: ['id', 'displayName', 'photos', 'email']
+        profileFields: ['id', 'displayName', 'photos', 'email'],
+        enableProof: true
     },
         function (accessToken, refreshToken, profile, cb) {
             var fbInfoObj = {
@@ -31,7 +32,7 @@ module.exports = (app, db) => {
                     var updatePhoto = { fbPhoto: profile.photos[0].value };
                     db.collection('users').updateOne({ fbId: profile.id }, { $set: updatePhoto }, (err, item) => {
                         if (err) return console.log(err)
-                            console.log(fbInfoObj)
+                        console.log(fbInfoObj)
                         return cb(null, fbInfoObj);
                     })
                 }
@@ -48,6 +49,7 @@ module.exports = (app, db) => {
             if (item == null) {
                 done(new Error('Wrong user id.'));
             } else {
+                console.log(item)
                 done(null, item);
             }
         })
