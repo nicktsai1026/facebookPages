@@ -18,6 +18,7 @@ app.set('secret',db.secret);
 // app.set('view engine', 'ejs'); 
 // app.engine('html', require('ejs').renderFile);
 
+
 const port = 8080;
 
 app.use(bodyParser.urlencoded({ extended: true }));
@@ -34,8 +35,8 @@ app.use(session({
     saveUninitialized: true
 }));
 
-//use style.css file
-//app.use('/public', express.static(__dirname + '/public'));
+// use style.css file
+app.use('/assets', express.static(__dirname + '/assets'));
 
 MongoClient.connect(db.url, (err, database) => {
     if (err) return console.log(err)

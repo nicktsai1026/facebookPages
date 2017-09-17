@@ -7,6 +7,7 @@ module.exports = function (app, db) {
         res.render('react') 
     })
 
+    // Add a seperate route for registered users to clean up the code
     app.get('/home', (req, res) => {
         var userId = req.session.passport.user;
         db.collection('users').findOne({ fbId : userId }, (err, item) => {
@@ -28,7 +29,8 @@ module.exports = function (app, db) {
                             // ab difference set差集
                             let differenceABSet = new Set([...a].filter(x => !b.has(x)));
                             let differenceArr = Array.from(differenceABSet);
-
+            
+                            // Add another .then() here?
                             differenceArr.forEach((value) => {
                                 db.collection('pagedetails').findOne({ id: value }, (err, item) => {
                                     var newfbUserId = item.fbUserId.filter(function (id) {
@@ -78,8 +80,8 @@ module.exports = function (app, db) {
         })
     })
 
-    app.get('/interface', (req, res) => {
-        // console.log(req);
+    app.get('/profile', (req, res) => {
+        console.log(req.session)
         var userId = req.session.passport.user;
         db.collection('users').findOne({ fbId: userId }, (err, item) => {
             if (err) return console.log(err)
@@ -130,7 +132,7 @@ module.exports = function (app, db) {
             item.likes.forEach((val)=>{
                 counter++;
             })
-            // console.log(counter);
+            console.log(counter);
         })
     })
 
@@ -139,9 +141,6 @@ module.exports = function (app, db) {
             console.log(item);
         })
     })
-
-
-
 }
 
 
