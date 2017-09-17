@@ -27,11 +27,10 @@ module.exports = function (app, db) {
                 console.log(item.fbId)
                 if (item.fbId){
                     console.log('Redirect this user to a registered route')
-                    //Add a loading path
-                    res.redirect('/home');        
+                    res.redirect('/home/' + token);        
                 } else {
                     console.log('This is a new user!')
-                    res.redirect('/home');
+                    res.redirect('/home/' + token);
                 }
             })
         });
