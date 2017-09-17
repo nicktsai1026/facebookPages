@@ -10,6 +10,9 @@ const db = require('./config/db');
 app.engine('handlebars', hb({ defaultLayout: 'main' }));
 app.set('view engine', 'handlebars');
 
+// set secret in config folder
+app.set('secret',db.secret);
+
 // view engine setup
 // app.set('views', path.join(__dirname, 'views'));
 // app.set('view engine', 'ejs'); 

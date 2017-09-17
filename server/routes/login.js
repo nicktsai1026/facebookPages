@@ -20,7 +20,8 @@ module.exports = function (app, db) {
     app.get('/auth/facebook/callback',
         passport.authenticate('facebook', { failureRedirect: '/login' }),
         function (req, res) {
-            res.redirect('/home');
+            // redirect home page with jwt token
+            res.redirect('/home/' + token);
         });
 
     app.get('/auth/facebook',

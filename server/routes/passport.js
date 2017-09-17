@@ -1,5 +1,7 @@
 const passport = require('passport');
 const facebookStrategy = require('passport-facebook').Strategy;
+const jwt = require('jsonwebtoken');
+//const secret = 'accelerateHK';
 
 module.exports = (app, db) => {
     app.use(passport.initialize());
@@ -40,6 +42,8 @@ module.exports = (app, db) => {
     ));
 
     passport.serializeUser((user, done) => {
+        //set token with jwt return to login file
+        token = jwt.sign({ userName: user.fbName, userId: user.fbId }, app.get('secret'), {expiresIn:'24h'});
         done(null, user.fbId);
     });
 
