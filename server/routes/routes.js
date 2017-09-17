@@ -8,7 +8,7 @@ module.exports = function (app, db) {
     })
 
     // Add a seperate route for registered users to clean up the code
-    app.get('/home', (req, res) => {
+    app.get('/home/:token', (req, res) => {
         var userId = req.session.passport.user;
         db.collection('users').findOne({ fbId : userId }, (err, item) => {
             if (err) return console.log(err)
